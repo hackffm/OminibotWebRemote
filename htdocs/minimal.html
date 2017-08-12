@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<body>
+
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(1600)">Forward</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(2000)">Backward</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(2200)">Left</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(1800)">Right</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(1400)">BeepmodeOn</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(2600)">Test2</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(2400)">Test3</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(2800)">Test4</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(1200)">LeftForward</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(1000)">LeftBackward</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(800)">RightForward</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(4600)">BeepmodeOff</button>
+<button onmouseup="myFunctionOff()" onmousedown="myFunctionOn(163)">LowBeep</button>
+<input id="slider2" type ="range" min ="50" max="10000" step ="50" value ="100" onchange="myFunctionRange(this.value);"/>
+
+<p id="demo"></p>
+
+<p>This is a very basic control for your OMNIBOT!</p>
+
+<script>
+var AudioContext = window.AudioContext || window.webkitAudioContext;
+context = new AudioContext;
+osc = context.createOscillator();
+osc.type=osc.SQUARE;
+osc.frequency.value = 440;
+
+var gainObj = context.createGain();
+gainObj.gain.value = 1;
+osc.connect(gainObj);
+gainObj.connect(context.destination);
+
+function myFunctionOff() {
+	document.getElementById("demo").innerHTML = "OFF";
+	osc.stop(0);
+}
+
+function myFunctionOn(f) {
+	document.getElementById("demo").innerHTML = "ON";
+	osc = context.createOscillator();
+	osc.type=osc.SQUARE;
+	osc.connect(gainObj);
+	osc.frequency.value = f;
+	osc.start(0);    
+}
+
+function myFunctionRange(f) {
+	document.getElementById("demo").innerHTML = f;
+	osc = context.createOscillator();
+	osc.type=osc.SQUARE;
+	osc.connect(gainObj);
+	osc.frequency.value = f;
+	osc.start(0);
+}
+
+</script>
+
+</body>
+</html>
